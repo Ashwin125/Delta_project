@@ -7,14 +7,11 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
         <link href="../style/home.css" rel='stylesheet'>
         <link href="https://unpkg.com/@popperjs/core@2">
-
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Nova+Mono&display=swap" rel="stylesheet">
-        
         <script src="../node_modules/codemirror/lib/codemirror.js"></script>
         <link rel="stylesheet" href="../node_modules/codemirror/lib/codemirror.css">
-        
         <script src="../node_modules/codemirror/mode/javascript/javascript.js"></script>
         <script src="../node_modules/codemirror/mode/php/php.js"></script>
         <script src="../node_modules/codemirror/mode/clike/clike.js"></script>
@@ -22,94 +19,176 @@
         <script src="../node_modules/codemirror/addon/scroll/simplescrollbars.js"></script>
         <script src="../node_modules/codemirror/addon/edit/matchbrackets.js"></script>
         <script src="../node_modules/codemirror/addon/edit/closebrackets.js"></script>
-
+        <script src="../node_modules/codemirror/addon/fold/foldgutter.js"></script>
+        <script src="../node_modules/codemirror/addon/fold/brace-fold.js"></script>
+        <script src="../node_modules/codemirror/addon/fold/comment-fold.js"></script>
+        <script src="../node_modules/codemirror/addon/fold/indent-fold.js"></script>
+        <script src="../node_modules/codemirror/addon/fold/foldcode.js"></script>
+        <script src="../node_modules/codemirror/addon/search/match-highlighter.js"></script>
+        <script src="../node_modules/codemirror/addon/search/search.js"></script>
+        <script src="../node_modules/codemirror/addon/search/searchcursor.js"></script>
+        <script src="../node_modules/codemirror/addon/scroll/annotatescrollbar.js"></script>
+        <script src="../node_modules/codemirror/addon/display/placeholder.js"></script>
+        <link rel='stylesheet' href='../node_modules/codemirror/addon/fold/foldgutter.css'>
         <link rel='stylesheet' href="../node_modules/codemirror/addon/scroll/simplescrollbars.css">
         <link rel='stylesheet' href='../node_modules/codemirror/theme/erlang-dark.css'>
-
         <title>Home</title>
     </head>
     <body class="bg-dark">
+    
 
-        <ul class="navbar navbar-dark bg-dark border-top border-bottom border-primary">
-
-            <li class="nav-item">
-                <div class="btn-group" role="group" aria-label="Basic outlined">
-                    <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Run Code">
-                        Run 
-                    </button>
-                    <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Save file here">
-                        Save
-                    </button>
-                    <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Download file">
-                        Download
-                    </button>
-                </div>
-            </li>
-
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Shorcuts
-                </a>
-                <ul class="dropdown-menu" style='list-style: none' aria-labelledby="navbarDropdown">
-                    <li class="dropdown-item list-group-item p-1 m-0 d-flex justify-content-between align-items-center">Select All
-                        <span class="ms-4 badge bg-primary"> Ctrl-A/Cmd-A</span>
-                    </li> 
-                    <li class="dropdown-item list-group-item p-1 m-0 d-flex justify-content-between align-items-center">Copy
-                        <span class="ms-4 badge bg-primary"> Ctrl-C/Cmd-C</span>
-                    </li> 
-                    <li class="dropdown-item list-group-item p-1 m-0 d-flex justify-content-between align-items-center">Paste
-                        <span class="ms-4 badge bg-primary"> Ctrl-V/Cmd-V</span>
-                    </li> 
-                    <li class="dropdown-item list-group-item p-1 m-0 d-flex justify-content-between align-items-center">Cut
-                        <span class="ms-4 badge bg-primary"> Ctrl-X/Cmd-X</span>
+        <nav class="navbar navbar-expand p-0 navbar-dark bg-dark">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <button class="nav-link" id='run'>Run</button>
                     </li>
-                    
+                    <li class="nav-item">
+                        <button class="nav-link" id='save'>Save</button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link" id='download'>Download</button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link" id='clear'>Clear</button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+                            Settings
+                        </button>
+                    </li>
+                    <li class='nav-item ms-2' style='width: 300px;'>
+        
+                        <select class="nav-link p-1 m-1 text-dark language form-select form-select-sm" >
+                            
+                            <option value="c" selected>C</option>
+                            <option value="c++">C++</option>
+                            <option value="java">Java</option>
+                            <option value="python">Python</option>
+                            <option value="javascript">JavaScript</option>
+                            
+                        </select>
+        
+                    </li>
+            
                 </ul>
-            </li>
-
-            <li class="nav-item pe-2 ps-2">
-                <select class="fonts form-select form-select-sm" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Font-Style" aria-label="Default select ">
-                    <option value="'Space Mono', monospace" selected>Space mono</option>
-                    <option value="'Cousine', monospace">Cousine</option>
-                    <option value="'Ubuntu Mono', monospace">Ubuntu</option>
-                    <option value="'Fira Code', monospace">Fira Code</option>
-                    <option value="'Nova Mono', monospace">Nova</option>
-                    <option value="'JetBrains Mono', monospace">JetBrains</option>
-                    <option value="'Syne Mono', monospace">Syne</option>
-                </select>
-            </li>
-
-            <li class='nav-item pe-2 ps-2'>
-
-                <select class="language form-select form-select-sm" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Language" aria-label="Default select ">
-                    <option value="c" selected>C</option>
-                    <option value="c++">C++</option>
-                    <option value="java">Java</option>
-                    <option value="python">Python</option>
-                    <option value="javaScript">JavaScript</option>
-                    <option value="php">PHP</option>
-                </select>
-
-            </li>
-        </ul>
-
-        <div class='split'>
+        </nav>
+        <div>
             <div class='code'>
             </div>
-            <div class='seperator'>
-                <div class='line'>
+            <div class="seperator"><div class="line"></div></div>
+            <div class='io p-0 m-0 row'>
+                <div class='output col-8 text-light'>
                 </div>
-            </div>
-            <div class='output text-light ms-3'>
-                <div class="row">
-                    Output  
+                <div class='input col-4 test-light' placeholder='Input goes here'>
                 </div>
             </div>
         </div>
         
-        
+
+        <div class="offcanvas offcanvas-end bg-dark" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+            <div class="offcanvas-header">
+                <h5 id="offcanvasRightLabel" class='p-2'>Settings</h5>
+                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                
+                <li class="nav-item">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">Font-Size</span>
+                        <input type="number" min='10' max='50' class="form-control" aria-describedby="basic-addon1">
+                    </div>
+                </li>
+
+                <li class="nav-item">
+                    <select class="fonts form-select mb-3" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Font-Style" aria-label="Default select ">
+                        <option value="'Space Mono', monospace" selected>Space mono</option>
+                        <option value="'Cousine', monospace">Cousine</option>
+                        <option value="'Ubuntu Mono', monospace">Ubuntu</option>
+                        <option value="'Fira Code', monospace">Fira Code</option>
+                        <option value="'Nova Mono', monospace">Nova</option>
+                        <option value="'JetBrains Mono', monospace">JetBrains</option>
+                        <option value="'Syne Mono', monospace">Syne</option>
+                    </select>
+                </li>
+
+                <li class="nav-item text-dark">
+                    <div class="accordion accordion-flush text-dark" id="accordionFlushExample">
+                        <div class="accordion-item rounded">
+                            <h2 class="accordion-header p-1" id="flush-headingOne">
+                                <button class="accordion-button collapsed rounded p-2" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                                    Shortcuts
+                                </button>
+                            </h2>
+                            <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                                <div class="accordion-body shortcuts f-6">
+                                    <ul style='list-style: none' class='p-0'>
+                                        <li class='d-flex justify-content-between'>
+                                            <p>Select all</p> 
+                                            <p>Ctrl-A, Cmd-A</p>
+                                        </li>
+                                    </ul>
+                                    <ul style='list-style: none' class='p-0'>
+                                        <li class='d-flex justify-content-between'>
+                                            <p>Delete line</p> 
+                                            <p>Ctrl-D, Cmd-D</p>
+                                        </li>
+                                    </ul>
+                                    <ul style='list-style: none' class='p-0'>
+                                        <li class='d-flex justify-content-between'>
+                                            <p>Undo</p> 
+                                            <p>Ctrl-Z, Cmd-Z</p>
+                                        </li>
+                                    </ul>
+                                    <ul style='list-style: none' class='p-0'>
+                                        <li class='d-flex justify-content-between'>
+                                            <p>Redo</p> 
+                                            <p>Ctrl-Y, Cmd-Y</p>
+                                        </li>
+                                    </ul>
+                                    <ul style='list-style: none' class='p-0'>
+                                        <li class='d-flex justify-content-between'>
+                                            <p>Goto line end</p> 
+                                            <p>Alt-Right, Ctrl-E(Mac)</p>
+                                        </li>
+                                    </ul>
+                                    <ul style='list-style: none' class='p-0'>
+                                        <li class='d-flex justify-content-between'>
+                                            <p>Goto line start</p> 
+                                            <p>Alt-Left, Ctrl-A(Mac)</p>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="accordion-item">
+                            <h2 class="accordion-header" id="flush-headingTwo">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                                    Font-family
+                                </button>
+                            </h2>
+                            <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                                <div class="accordion-body">
+
+
+                                </div>
+                            </div>
+                        </div> -->
+                    </div>
+                </li>
+
+                <% if(user === undefined) { %>
+                    <li class="nav-item text-center">
+                        <button class="btn btn-primary p-1 m-2" style='width: 200px'>
+                            Login
+                        </button>
+                    </li>
+                <% } %> 
+
+            </div>
+        </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous">
         </script>
         <script src="../script/home.js"></script>
+        <script src="../script/split.js"></script>
     </body>
 </html>
