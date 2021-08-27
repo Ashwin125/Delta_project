@@ -1,7 +1,12 @@
 const dotenv = require('dotenv');
 const express = require('express');
-const home = require('./routes/home');
 const session = require('express-session');
+const users = require('./utils/users')
+const files = require('./utils/files')
+const home = require('./routes/home');
+const login = require('./routes/login');
+const user = require('./routes/user');
+const logout = require('./routes/logout')
 
 dotenv.config();
 
@@ -28,7 +33,13 @@ app.use('/script', express.static('script'));
 app.use('/node_modules', express.static('node_modules'));
 app.use(express.json());
 
+
+app.use(login.router);
 app.use(home.router);
+app.use(user.router);
+app.use(logout.router);
+
+
 
 
 app.listen(app.get('port'), () => {
