@@ -7,6 +7,7 @@ let fonts = document.querySelector('.fonts');
 let font_size = document.querySelector('#font_size');
 let run = document.querySelector('#run');
 let save = document.querySelector('#save');
+let copy = document.querySelector("#copy");
 let download = document.querySelector('#download');
 let downloadButton = document.querySelector('#download_file');
 let file_is_open = false;
@@ -93,8 +94,6 @@ const Inputs = new CodeMirror(input, {
 CodeEditor.setSize('100vw', '63vh');
 Outputs.setSize('100%', '100%');
 Inputs.setSize('100%', '100%');
-
-
 
 Inputs.setValue("Input goes here.. (clear)\n");
 Outputs.setValue("Output \n")
@@ -183,6 +182,14 @@ document.querySelector('#pop_save_modal').addEventListener('click', () => {
 
 document.querySelector('#clear').addEventListener('click', () => {
     CodeEditor.setValue('');
+});
+
+copy.addEventListener('click', () => {
+
+
+    navigator.clipboard.writeText(CodeEditor.getValue());
+
+
 });
 
 download.addEventListener('click', (e) => {
@@ -391,7 +398,7 @@ function insertFiles() {
                                 
                                 <div class='btn-group d-flex'>
                                     <p data-file='${file.FileID}' data-fileName='${file.File_Name}' data-bs-toggle="modal" data-bs-target="#deleteModal" class='delete btn btn-outline-danger'>Delete</p>
-                                    <p data-file='${file.FileID}' data-fileName='${file.File_Name}' class='open btn btn-outline-primary'>Open</p>
+                                    <p data-file='${file.FileID}' data-fileName='${file.File_Name}' data-last-open='${file.Last_Modified}' class='open btn btn-outline-primary'>Open</p>
                                     <p data-file='${file.FileID}' data-fileName='${file.File_Name}' data-bs-toggle="modal" data-bs-target="#renameModal" class='rename btn btn-outline-primary'>Rename</p>
                                 </div>
                             </li>
@@ -588,6 +595,7 @@ function addOpenEvent() {
 
             let fileName = element.getAttribute('data-fileName');
             let fileID = element.getAttribute('data-file');
+            let lastUpdated = element.getAttribute('data-last-open');
 
             getFile(fileID)
             .then(fileContent => {
@@ -626,6 +634,7 @@ function addOpenEvent() {
                 }
 
                 fileLabel.style.display = 'block';
+                fileLabel.setAttribute('data-bs-original-title', 'Last-updated ' + lastUpdated);
                 closeButton.style.display = 'block';
 
             });

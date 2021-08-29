@@ -84,6 +84,45 @@ function userExists(username, password, callback) {
 
 }
 
+function updateUser(userID, username, email, callback) {
+
+    const query = 'UPDATE Users SET Username = ?, email = ? WHERE UserID = ?';
+
+
+    connection.query(query, [username, email, userID], (err, result) => {
+
+        if(err) {
+            console.log(err);
+            return;
+        }
+
+        callback();
+    })
+
+}
+
+function updatePassword(email, password, callback) {
+
+
+    getHash(password, hash => {
+
+        const query = 'UPDATE Users SET password = ? WHERE email = ?';
+    
+        connection.query(query, [hash, email], (err, result) => {
+    
+            if(err) {
+                console.log(err);
+                return;
+            }
+    
+            callback();
+
+        })
+
+    })
+
+}
+
 function getUser(username, callback) {
 
     const query = 'SELECT * FROM Users WHERE Username = ?';
@@ -102,6 +141,7 @@ function getUser(username, callback) {
 }
 
 function getHash(password, callback) {
+
     bcrypt.genSalt(saltRounds, (err, salt) => {
 
         if(err) {
@@ -129,6 +169,8 @@ module.exports = {
     addUser,
     usernameExists,
     emailExists,
+    updateUser,
+    updatePassword,
     userExists,
     getUser
 }

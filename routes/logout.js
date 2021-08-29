@@ -15,7 +15,7 @@ router.get('/logout', redirectLogin, (req, res) => {
 
     delete req.session.user;
 
-    res.redirect('/login?message=' + 'Logged Out Successfully');
+    res.redirect('/login?message=' + 'Logged Out.');
     return;
 
 });

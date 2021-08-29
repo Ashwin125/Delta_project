@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        
+        <title>Code-Editor</title>
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+        <meta charset="utf-8">
+        <meta viewport="width=device-width, initial-scale=1">
+
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=PT+Mono&display=swap');
+            @keyframes Gradient {
+                0% {
+                    background-position: 0% 50%;
+                }
+                50% {
+                    background-position: 100% 50%;
+                }
+                100% {
+                    background-position: 0% 50%;
+                }
+            }
+              
+            body {
+                background: linear-gradient(135deg, rgb(35, 39, 95), rgb(68, 99, 146), rgb(35, 39, 95), rgb(68, 99, 146), rgb(35, 39, 95));/*
+                background: linear-gradient(135deg, rgb(121, 46, 46), rgb(136, 128, 55), rgb(53, 131, 53), rgb(65, 87, 126), rgb(122, 49, 59));*/
+                background-size: 400% 400%;
+                animation: Gradient 15s ease infinite;
+                height: 100vh;
+                width: 100%;
+                overflow: hidden;
+                padding: 0;
+                margin: 0;
+              
+            }
+            header {
+                user-select: none;
+                font-family: 'PT Mono', monospace;
+                height: 150px;
+            }
+
+        </style>
+        
+    </head>
+    <body class='bg-dark text-light'>
+
+        <header class="text-start">
+
+            <div id='title' style='font-size: 90px' class='ms-5 ps-3'></div>
+
+        </header>
+
+        <div class='container'>
+            
+            <p id='bodyText'>
+            </p>
+
+        </div>
+
+        <footer class='text-light'>
+            <div class="container">
+
+                <a href="/login">
+                    Login
+                </a>
+
+                <br/>
+
+                <a href="/home">
+                    Go to Editor
+                </a>
+
+                <br/>
+
+                <a href="githublink">
+                    Source Code
+                </a>
+            </div>
+        </footer>
+        <script>
+
+            let title = document.querySelector('#title');
+
+            let text = '<Code-Editor>'
+            let i = 0;
+            
+
+            async function enterText() {
+
+                if(i === text.length) return;
+
+                setTimeout(() => {
+
+                    let temp = title.innerHTML;
+
+                    let j = 0;
+                    
+
+                    async function blip() {
+
+                        if(j === 1) return;
+
+                        ++j;
+
+                        await new Promise(r => setTimeout(r, 50));
+
+                        title.innerHTML = temp + '_';
+
+                        await new Promise(r => setTimeout(r, 50));
+
+                        title.innerHTML = temp;
+
+                        return blip()
+
+                    }
+
+                    blip()
+                    .then(() => {
+
+                        title.innerHTML = temp;
+
+                        title.innerHTML += text[i];
+                        ++i;
+                        
+                        enterText();
+
+                    })
+                    
+
+                }, 10)
+            }
+            
+            enterText();
+
+
+            let bodyText = `Welcome to Code-Editor! \nEasy to use and operate code editor. \nNo installation or configuration. \n`;
+            bodyText += 'Save files on server by just making and account.\nOr download file locally.\n';
+
+
+            let body = document.querySelector("#bodyText");
+            let k = 0;
+
+            const printText = async function() {
+
+                if (k === bodyText.length) return;
+
+
+                await new Promise(r => setTimeout(r, 20));
+
+
+                if(bodyText[k] === '\n') {
+                    body.innerHTML += '<br/>'
+                } else {
+                    body.innerHTML += bodyText[k];
+                }
+
+
+                ++k;
+
+
+                printText();
+
+            }
+
+            printText();
+            
+
+        </script>
+    </body>
+</html>

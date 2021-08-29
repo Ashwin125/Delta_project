@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>
+            <%= user.Username %> 
+        </title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+
+        <style>
+
+            #toast {
+                position: absolute;
+                bottom: 0;
+                right: 0;
+                margin: 20px;
+                
+            }
+
+        </style>
+
+    </head>
+    <body class='bg-dark'>
+
+        <h2 class='m-3 text-center text-light'>
+            Code-Editor
+        </h2>
+        <ul class="nav d-flex justify-content-center">
+            <li class="nav-item">
+                <a class="nav-link" href='/home'>Editor</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id='discard' href='#'>Discard changes</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-danger" href='/logout'>Logout</a>
+            </li>
+        </ul>
+              
+
+        <div class="mt-5 d-flex justify-content-center" style="min-height: 120px;"> 
+            
+            <div class="p-3" style='width: 500px'>
+
+                <p class='text-light'>Edit your details</p>
+
+                <div class="form-floating mb-3">
+                    <input type="text" minlength='4' maxlength='40' class="form-control" id="username" name='username' value="<%= user.Username %>">
+                    <label for="username">Username</label>
+                </div>
+    
+                <div class="form-floating mb-3">
+                    <input type="email" minlength='4' maxlength='40' class="form-control" id="email" name='email' value="<%= user.email %>">
+                    <label for="email">Email</label>
+                </div>
+    
+                <div class="text-center mb-3">
+                    <div class='btn btn-primary' id='save_changes' style='width: 300px'> Save </div>
+                </div>
+
+                <a id='passwordButton' data-bs-toggle="collapse" href="#password" role="button" aria-expanded="false" aria-controls="password" class="text-primary">
+                    Change Password?
+                </a>
+
+            </div>
+
+            <div class="collapse  collapse-horizontal" id="password" style='width: 500px;'>
+
+                <div class="card card-body bg-dark" style='width: 500px;'>
+            
+                    <p class='text-light'>Enter new password</p>
+                        
+                    <div class="form-floating mb-3">
+                        <input id='pass' minlength='4' maxlength='40' type="password" class="form-control" id="pass" name='password' placeholder="Password" required>
+                        <label for="pass">Password <span id='strength'></span></label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="password" minlength='4' maxlength='40' class="form-control" id="rpass" name='password2' placeholder="Password" required>
+                        <label for="rpass">Retype Password</label>
+                    </div>
+
+
+                    <div class="text-center">
+                        <div class='btn btn-primary' id='change_password' style='width: 300px'> Change Password </div>
+                    </div>
+    
+                </div>
+            </div>
+
+        </div>
+        
+        <div id='toast' style="z-index: 11">
+
+            <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+
+                <div class="toast-header">
+                    <strong class="me-auto"><code>CodeEditor</code></strong>
+                    <small>Now</small>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+
+                <div class="toast-body">
+                </div>
+            </div>
+        </div>
+
+        <script src='../script/users.js'></script>
+        <script>
+            let user = JSON.parse('<%- JSON.stringify(user) %> ');
+
+            document.querySelector('#discard').addEventListener('click', () => {
+
+                document.querySelector('#username').value = user.Username;
+                document.querySelector('#email').value = user.email;
+
+            });
+
+        </script>
+    </body>
+</html>

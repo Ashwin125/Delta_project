@@ -1,26 +1,6 @@
-let i = 0;
-let txt = '<Code-Editor>';
-let speed = 150;
+document.querySelector('#save_changes').addEventListener('click', () => {
 
-function typeWriter() {
-    if (i < txt.length) {
-        document.getElementById("title").innerHTML += txt.charAt(i);
-        i++;
-        setTimeout(typeWriter, speed);
-    }
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-    typeWriter();
-})
-
-document.querySelector('#send_mail').addEventListener('click', () => {
-
-
-    let email = document.querySelector('#new_password_email').value;
-
-
-    fetch('/login', {
+    fetch('/user', {
 
         method: 'POST',
 
@@ -29,23 +9,68 @@ document.querySelector('#send_mail').addEventListener('click', () => {
         },
 
         body: JSON.stringify({
-            forget_password: true,
-            email,
+
+            type: 'save',
+            username: document.querySelector('#username').value,
+            email: document.querySelector('#email').value
+
         })
+
     })
+    .then(res => res.text())
+    .then(res => JSON.parse(res))
     .then(res => {
-        return res.text()
-    })
-    .then(res => {
-        return JSON.parse(res);
-    })
-    .then(res => {
+
         document.querySelector('.toast-body').innerHTML = res.message;
         let toast = new bootstrap.Toast(document.querySelector('#liveToast'));
         toast.show()
+        return;    
     })
 
 });
+
+
+document.querySelector('#change_password').addEventListener('click', () => {
+
+    let pass1 = document.querySelector('#pass').value;
+    let pass2 = document.querySelector('#rpass').value;
+
+    if(pass1 !== pass2) {
+
+        document.querySelector('.toast-body').innerHTML = "Password didn't match.";
+        let toast = new bootstrap.Toast(document.querySelector('#liveToast'));
+        toast.show()
+        
+    } 
+
+    fetch('/user', {
+
+        method: 'POST',
+
+        headers: {
+            'Content-Type': 'application/json'
+        },
+
+        body: JSON.stringify({
+
+            type: 'password',
+
+            password: document.querySelector('#username').value
+
+        })
+
+    })
+    .then(res => res.text())
+    .then(res => JSON.parse(res))
+    .then(res => {
+
+        document.querySelector('.toast-body').innerHTML = res.message;
+        let toast = new bootstrap.Toast(document.querySelector('#liveToast'));
+        toast.show()
+
+    })
+});
+
 
 
 document.querySelector("#pass").addEventListener('keydown', (event) => {
@@ -127,6 +152,7 @@ document.querySelector("#pass").addEventListener('keydown', (event) => {
     strength.innerHTML += ')';
 
 });
+
 
 function count(password, str) {
 

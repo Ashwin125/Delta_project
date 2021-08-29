@@ -3,6 +3,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Cousine&family=Space+Mono&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@100&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Syne+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
 
 * {
     padding: 0;
@@ -39,15 +40,9 @@ body {
     outline: none;
 }
 
-.navbar button:hover {
-    transition: 0.3s;
-    box-shadow: 0px 0px 2px gray;
-}
-
 .navbar button:active {
     transition: 0.1s;
-    background-color: gray;
-    box-shadow: 0px 0px 5px gray;
+    background-color: rgb(0, 0, 0);
 }
 
 .cm-matchhighlight {
@@ -130,4 +125,15 @@ li {
 
 #fileslist ul {
     padding-bottom: 4px;
+}
+
+
+.navbar-brand {
+    padding: 0px 10px;
+    margin: 0px;
+}
+
+
+a {
+    text-decoration: none;
 }

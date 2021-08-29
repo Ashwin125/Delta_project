@@ -1,8 +1,6 @@
 const dotenv = require('dotenv');
 const express = require('express');
 const session = require('express-session');
-const users = require('./utils/users')
-const files = require('./utils/files')
 const home = require('./routes/home');
 const login = require('./routes/login');
 const user = require('./routes/user');
@@ -34,12 +32,29 @@ app.use('/node_modules', express.static('node_modules'));
 app.use(express.json());
 
 
+app.get('/', (req, res) => {
+
+    let user = undefined;
+
+    if('user' in req.session) {
+        user = req.session.user;
+    }
+    
+    res.render('welcome',{user: user});
+
+});
+
 app.use(login.router);
 app.use(home.router);
 app.use(user.router);
 app.use(logout.router);
 
 
+app.get('/*', (req, res) => {
+
+    res.sendFile(__dirname + '/error.html');
+
+});
 
 
 app.listen(app.get('port'), () => {

@@ -5,7 +5,6 @@
         <meta charset="utf-8">
         <meta viewport="width=device-width, initial-scale=1">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
-        <link href="../style/home.css" rel='stylesheet'>
         <link href="https://unpkg.com/@popperjs/core@2">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -32,36 +31,60 @@
         <link rel='stylesheet' href='../node_modules/codemirror/addon/fold/foldgutter.css'>
         <link rel='stylesheet' href="../node_modules/codemirror/addon/scroll/simplescrollbars.css">
         <link rel='stylesheet' href='../node_modules/codemirror/theme/erlang-dark.css'>
-        <title>Home</title>
+        <title>Home</title>        
+        <link href="../style/home.css" rel='stylesheet'>
+
     </head>
     <body class="bg-dark">
     
-        <nav class="navbar navbar-expand p-0 navbar-dark bg-dark">
-            <ul class="navbar-nav">
-                <li class="nav-item">
+        <nav class="navbar navbar-expand container p-0 navbar-dark">
+
+            <li class="nav-item" >
+                <a href='/' class='nav-link navbar-brand text-primary'>
+                    Code-Editor
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-code-slash" viewBox="0 0 16 16">
+                        <path d="M10.478 1.647a.5.5 0 1 0-.956-.294l-4 13a.5.5 0 0 0 .956.294l4-13zM4.854 4.146a.5.5 0 0 1 0 .708L1.707 8l3.147 3.146a.5.5 0 0 1-.708.708l-3.5-3.5a.5.5 0 0 1 0-.708l3.5-3.5a.5.5 0 0 1 .708 0zm6.292 0a.5.5 0 0 0 0 .708L14.293 8l-3.147 3.146a.5.5 0 0 0 .708.708l3.5-3.5a.5.5 0 0 0 0-.708l-3.5-3.5a.5.5 0 0 0-.708 0z"/>
+                    </svg>
+                </a>
+            </li>
+
+            <ul class="navbar-nav d-flex justify-content-between" style='width: 100%'>
+
+
+                <li class="nav-item d-flex">
+
+                    <button class="nav-link" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+                        <svg xmlns="http://www.w3.org/2000/svg" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Settings" width="18" height="18" fill="currentColor" class="bi bi-sliders" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M11.5 2a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM9.05 3a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0V3h9.05zM4.5 7a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM2.05 8a2.5 2.5 0 0 1 4.9 0H16v1H6.95a2.5 2.5 0 0 1-4.9 0H0V8h2.05zm9.45 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm-2.45 1a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0v-1h9.05z"/>
+                        </svg>
+                    </button>
+                    <button data-bs-toggle="modal" data-bs-target="#downloadModal" id='download' class="nav-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Download" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
+                            <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+                            <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+                        </svg>
+                    </button>
+                    <button class="nav-link" id='copy'>
+                        <svg xmlns="http://www.w3.org/2000/svg" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Copy Code" width="16" height="16" fill="currentColor" class="bi bi-clipboard" viewBox="0 0 16 16">
+                            <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+                            <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+                        </svg>
+                    </button>
+                </li>
+
+
+                <li class="nav-item d-flex">
                     <button class="nav-link" id='run'>Run</button>
-                </li>
-                <li class="nav-item">
-                    <button class="nav-link" id='pop_save_modal' data-bs-toggle="modal" data-bs-target="#saveModal">Save</button>
-                </li>
-                <li class="nav-item">
-                    <button data-bs-toggle="modal" data-bs-target="#downloadModal" id='download' class="nav-link">Download</button>
-                </li>
-                <li class="nav-item">
                     <button class="nav-link" id='clear'>Clear</button>
+                    <button class="nav-link" id='pop_save_modal' data-bs-toggle="modal" data-bs-target="#saveModal">Save</button>
                 </li>
 
                 <li class="nav-item d-flex">
-                    <button class="nav-link" style='display: none' id='file_name'></button>
-                    <button class='nav-link' style='display: none' id='close_open_file'>Close</button>
+                    <button class="nav-link" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-original-title="Last Updated" style='display: none' id='file_name'></button>
+                    <button class='nav-link text-danger' style='display: none' id='close_open_file'>Close</button>
                 </li>
 
-                <li class="nav-item">
-                    <button class="nav-link" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
-                        Settings
-                    </button>
-                </li>
-                <li class='nav-item ms-2' style='width: 300px;'>
+                <li class='nav-item ms-2' style='width: 200px;'>
     
                     <select class="nav-link p-1 m-1 text-dark language form-select form-select-sm" >
                         
@@ -74,6 +97,28 @@
                     </select>
     
                 </li>
+
+                <% if(user === undefined) { %>
+                    
+                    <li class="nav-item text-primary">
+                        <a href="/login">
+                            <button class='nav-link text-primary' type='button'>
+                                Login
+                            </button>
+                        </a>
+                    </li>
+
+                <% } else { %>
+
+                    <li class="nav-item text-danger">
+                        <a href="/logout">
+                            <button class='nav-link text-danger' type='button'>
+                                Logout
+                            </button>
+                        </a>
+                    </li>
+
+                <% } %> 
         
             </ul>
         </nav>
@@ -177,20 +222,6 @@
                             </h2>
                             <div id="files" class="accordion-collapse collapse" aria-labelledby="files_heading" data-bs-parent="#accordionFlushExample">
                                 <div class="accordion-body p-2" id='fileslist'>
-
-                                    <ul style='list-style: none' class='p-0'>
-                                        <li class='d-flex justify-content-between'>
-
-                                            <p style='font-size: 14px'>fileName</p> 
-                                            
-                                            <div class='btn-group d-flex'>
-                                                <p data-file='1' class='delete btn btn-outline-danger'>Delete</p>
-                                                <p data-file='1' class='open btn btn-outline-primary'>Open</p>
-                                                <p data-file='1' class='rename btn btn-outline-primary'>Rename</p>
-                                            </div>
-                                        </li>
-                                    </ul>
-
                                 </div>
                             </div>
                         </div>
@@ -206,8 +237,8 @@
                     </li>
                 <% } else { %>
                     <li class="nav-item text-center">
-                        <a href='/logout' class="btn btn-primary p-1 m-2" style='width: 200px'>
-                            Logout
+                        <a href='/user' class="btn btn-primary p-1 m-2" style='width: 200px'>
+                            Manage Account
                         </a>
                     </li>
                 <% } %> 
