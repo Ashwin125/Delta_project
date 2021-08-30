@@ -42,7 +42,7 @@ document.querySelector('#send_mail').addEventListener('click', () => {
     .then(res => {
         document.querySelector('.toast-body').innerHTML = res.message;
         let toast = new bootstrap.Toast(document.querySelector('#liveToast'));
-        toast.show()
+        toast.show();
     })
 
 });
@@ -140,3 +140,4 @@ function count(password, str) {
 
     return c;
 }
+

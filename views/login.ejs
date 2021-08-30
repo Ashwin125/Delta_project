@@ -5,7 +5,7 @@
         <meta charset="utf-8">
         <meta viewport="width=device-width, initial-scale=1">
         <title>Login</title>
-
+        <link rel="shortcut icon" type="image/x-icon" href="../images/icon.ico">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
         <style>
@@ -13,7 +13,31 @@
             h2 {
                 font-family: 'PT Mono', monospace;
             }
-            
+            @keyframes Gradient {
+                0% {
+                    background-position: 0% 50%;
+                }
+                50% {
+                    background-position: 100% 50%;
+                }
+                100% {
+                    background-position: 0% 50%;
+                }
+            }
+              
+            body {
+                background: linear-gradient(135deg, rgb(73, 35, 95), rgb(91, 68, 146), rgb(73, 35, 95), rgb(91, 68, 146), rgb(73, 35, 95));/*
+                background: linear-gradient(135deg, rgb(121, 46, 46), rgb(136, 128, 55), rgb(53, 131, 53), rgb(65, 87, 126), rgb(122, 49, 59));*/
+                background-size: 400% 400%;
+                animation: Gradient 15s ease infinite;
+                height: 100vh;
+                width: 100%;
+                overflow: hidden;
+                padding: 0;
+                margin: 0;
+              
+            }
+
             #body {
                 position: absolute;
                 padding: 0;
@@ -22,6 +46,7 @@
                 top: 5%;
                 transform: translate(-50%);
             }
+            
 
             #toast {
                 position: absolute;
@@ -31,9 +56,17 @@
                 
             }
 
+            .collapse, .card {
+                background: none;
+                background-color: transparent;
+                border: none;
+            }
+
+
         </style>
     </head>
-    <body class='bg-dark'>
+    <body>
+
 
         <div id="body">
             <h2 class='text-light' id='title'>
@@ -73,7 +106,7 @@
                         </a>
     
                         <div class="collapse" id="password">
-                            <div class="card card-body bg-dark text-light">
+                            <div class="card card-body text-light">
                         
                                 <p>Your new password will be send to your email.</p>
                 

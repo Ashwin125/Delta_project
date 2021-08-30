@@ -4,7 +4,7 @@
     <head>
         
         <title>Code-Editor</title>
-
+        <link rel="shortcut icon" type="image/x-icon" href="../images/icon.ico">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
         <meta charset="utf-8">
@@ -12,44 +12,88 @@
 
         <style>
             @import url('https://fonts.googleapis.com/css2?family=PT+Mono&display=swap');
-            @keyframes Gradient {
-                0% {
-                    background-position: 0% 50%;
-                }
-                50% {
-                    background-position: 100% 50%;
-                }
-                100% {
-                    background-position: 0% 50%;
-                }
-            }
-              
+
             body {
-                background: linear-gradient(135deg, rgb(35, 39, 95), rgb(68, 99, 146), rgb(35, 39, 95), rgb(68, 99, 146), rgb(35, 39, 95));/*
-                background: linear-gradient(135deg, rgb(121, 46, 46), rgb(136, 128, 55), rgb(53, 131, 53), rgb(65, 87, 126), rgb(122, 49, 59));*/
-                background-size: 400% 400%;
-                animation: Gradient 15s ease infinite;
-                height: 100vh;
-                width: 100%;
                 overflow: hidden;
-                padding: 0;
-                margin: 0;
-              
+                background-color: rgb(66, 40, 107);
             }
+
             header {
                 user-select: none;
                 font-family: 'PT Mono', monospace;
                 height: 150px;
             }
 
+            footer {
+                position: absolute;
+                bottom: 0;
+                padding: 50px;
+                width: 100vw;
+                background-color: rgba(39, 111, 179, 0.24);
+                user-select: none;
+            }
+
+            a {
+                display: inline;
+                padding: 5px;
+                margin: 10px;
+                text-decoration: none;
+                color: rgb(0, 255, 234);
+                
+            }
+
+            a:hover {
+                color: white;
+            }
+
+            #title {
+                font-size: 90px;
+            }
+
+            p {
+                font-size: 22px;
+                margin-left: 20px;
+            }
+
+            .bubble {
+                position: absolute;
+                width: 100px;
+                height: 100px;
+                border-radius: 50%;
+                left: 10px;
+                top: 10px;
+                background-color: rgba(255, 255, 255, 0.295);
+            }
+
         </style>
         
     </head>
-    <body class='bg-dark text-light'>
+    <body class='text-light'>
+
+        <div class="bubbles">
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+        </div>
 
         <header class="text-start">
 
-            <div id='title' style='font-size: 90px' class='ms-5 ps-3'></div>
+            <div id='title' class='ms-5 ps-3'></div>
 
         </header>
 
@@ -61,24 +105,18 @@
         </div>
 
         <footer class='text-light'>
-            <div class="container">
 
-                <a href="/login">
-                    Login
-                </a>
+            <a href="/login">
+                Login
+            </a>
 
-                <br/>
+            <a href="/home">
+                Go to Editor
+            </a>
 
-                <a href="/home">
-                    Go to Editor
-                </a>
-
-                <br/>
-
-                <a href="githublink">
-                    Source Code
-                </a>
-            </div>
+            <a target='_new' href="https://github.com/Ashwin125/Delta_project.git">
+                Source Code
+            </a>
         </footer>
         <script>
 
@@ -90,7 +128,10 @@
 
             async function enterText() {
 
-                if(i === text.length) return;
+                if(i === text.length) {
+                    printText();
+                    return
+                };
 
                 setTimeout(() => {
 
@@ -148,11 +189,11 @@
                 if (k === bodyText.length) return;
 
 
-                await new Promise(r => setTimeout(r, 20));
+                await new Promise(r => setTimeout(r, 30));
 
 
                 if(bodyText[k] === '\n') {
-                    body.innerHTML += '<br/>'
+                    body.innerHTML += '<br/> <br/>'
                 } else {
                     body.innerHTML += bodyText[k];
                 }
@@ -164,10 +205,46 @@
                 printText();
 
             }
-
-            printText();
             
+            let positions = [];
 
+
+            document.querySelectorAll('.bubble').forEach((bubble, index) => {
+
+                positions[index] = {
+                    x: window.innerWidth - 130,
+                    y: 10,
+                    xSpeed: (Math.random() * 4),
+                    ySpeed: (Math.random() * 4),
+                    done: false
+                }
+            
+            });
+
+            
+            
+            setInterval(() => {
+            
+                document.querySelectorAll('.bubble').forEach((bubble, index) => {
+
+                    if(positions[index].x >= window.innerWidth - 100 || positions[index].x < 0) {
+                        positions[index].xSpeed = -positions[index].xSpeed;
+                    }
+            
+                    if(positions[index].y >= window.innerHeight - 100 || positions[index].y < 0) {
+                        positions[index].ySpeed = -positions[index].ySpeed;
+                    }
+            
+                    positions[index].x += positions[index].xSpeed;
+                    positions[index].y += positions[index].ySpeed;
+            
+                    bubble.style.left = positions[index].x + 'px';
+                    bubble.style.top = positions[index].y + 'px';
+                    
+                });
+            
+            }, 20)
+            
         </script>
     </body>
 </html>

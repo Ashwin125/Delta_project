@@ -100,11 +100,10 @@ Outputs.setValue("Output \n")
 
 language.addEventListener('change', (e) => {
 
-    let lang_precode;    
+    let lang_precode;
 
     if(e.target.value === 'c') {
         CodeEditor.setOption('mode', 'text/x-csrc');
-        // CodeEditor.setValue(cCode);
         lang_precode = cCode;
     } else if (e.target.value === 'c++') {
         CodeEditor.setOption('mode', 'text/x-c++src');
@@ -159,9 +158,9 @@ run.addEventListener('click', () => {
 
         let Output;
         if(res.err !== undefined) {
-            Output = res.stderr + '\n\n';
+            Output = res.stderr;
         } else {
-            Output = res.stdout + '\n\n';
+            Output = res.stdout;
         }
         
         Outputs.setValue(
@@ -186,9 +185,7 @@ document.querySelector('#clear').addEventListener('click', () => {
 
 copy.addEventListener('click', () => {
 
-
     navigator.clipboard.writeText(CodeEditor.getValue());
-
 
 });
 
@@ -209,6 +206,7 @@ download.addEventListener('click', (e) => {
 
 downloadButton.addEventListener('click', e => {
 
+    showMessage("File is downloading.");
     let fileName = document.querySelector('#download_file_name').value;
     let content = CodeEditor.getValue();
     let blob = new Blob([content], { type: 'text/plain;charset=utf-8'});
@@ -219,6 +217,7 @@ downloadButton.addEventListener('click', e => {
     a.click();
 
     URL.revokeObjectURL(a.href);
+    
     
     a.remove();
 
@@ -276,6 +275,7 @@ if(save) {
             document.querySelector('#file_name').innerHTML = fileName;
             let id = '#file_' + open_fileID + '_block p';
             document.querySelector(id).innerHTML = fileName;
+            showMessage(fileName + ' Saved');
             document.querySelector('#save_file_name').value = '';
             return;
         }
@@ -303,6 +303,7 @@ if(save) {
         .then(res => {
             insertFiles();
             document.querySelector('#save_file_name').value = '';
+            showMessage(fileName + ' saved.');
             return JSON.parse(res);
         })
         .catch(err => {
@@ -492,8 +493,13 @@ function deleteFile(fileID) {
     .then(() => {
 
         let id = 'file_' + fileID + '_block';
+        let fileName = document.querySelector('#' + id + ' p').innerHTML;
+        showMessage(fileName + ' deleted.');
+
         document.getElementById(id).innerHTML = '';
         document.getElementById(id).remove();
+
+        
 
         if (document.querySelector('#fileslist').children.length === 0) {
             document.querySelector('#fileslist').innerHTML += `
@@ -503,7 +509,10 @@ function deleteFile(fileID) {
             `
         }
 
-    });
+    })
+    .catch(err => {
+        showMessage("Something went wrong.");
+    })
 }
 
 function renameFile(fileID, newName) {
@@ -551,7 +560,6 @@ function addDeleteEvent() {
     deleteButton.addEventListener('click', e => {
 
         deleteFile(fileID);
-        // window.alert(fileName + " is deleted");
 
     });
     
@@ -657,4 +665,16 @@ function addOpenEvent() {
 
     });
     
+}
+
+function showMessage(message) {
+
+    document.querySelector('.toast-body').innerHTML = message;
+    let toast = new bootstrap.Toast(document.querySelector('#liveToast'));
+    toast.show();
+
+    setTimeout(() => {
+        document.querySelector('#close_toast').click();
+    }, 5000);
+
 }

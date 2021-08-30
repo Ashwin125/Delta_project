@@ -28,6 +28,7 @@ app.set('port', process.env.PORT);
 app.set('view engine', 'ejs');
 app.use('/style', express.static('style'));
 app.use('/script', express.static('script'));
+app.use('/images', express.static('images'));
 app.use('/node_modules', express.static('node_modules'));
 app.use(express.json());
 

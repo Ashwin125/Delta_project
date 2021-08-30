@@ -18,9 +18,9 @@ body {
     display: flex;
     flex-direction: column;
     height: 100vh;
-    /* overflow-y: hidden; */
     overflow-x: hidden;
     color: white;
+    background-color: rgb(0, 10, 66);
 }
 
 .seperator:hover .line {
@@ -31,6 +31,8 @@ body {
 }
 
 .navbar {
+    background-color: rgb(0, 10, 66);
+
     height: 7vh;
 }
 
@@ -60,8 +62,6 @@ li {
 
 .code {
     border-top: 1px solid gray;
-    /* border-bottom: 1px solid gray; */
-    /* height: 63vh; */
 }
 
 .seperator {
@@ -136,4 +136,13 @@ li {
 
 a {
     text-decoration: none;
+}
+
+#toast {
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+    z-index: 1000;
+    color: black;
+    background-color: rgb(25, 25, 53);;
 }

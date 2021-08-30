@@ -38,12 +38,15 @@ router.get('/login', (req, res) => {
 router.post('/login', urlencodedParser, (req, res) => {
     
     if('Login' in req.body) {
-        console.log('now hree');
+        
         Login(req.body, req, res);
         return;
+
     } else if ('Register' in req.body) {
+
         Register(req.body, req, res);
         return;
+        
     } else if ('forget_password' in req.body) {
 
         users.emailExists(req.body.email, result => {
@@ -74,6 +77,7 @@ Do not reply to this email.
             };
               
             transporter.sendMail(mailOptions, function(error, info){
+
                 if (error) {
                     
                     res.send(JSON.stringify({ message: 'Something went wrong.' }))
@@ -81,12 +85,15 @@ Do not reply to this email.
 
                 } else {
 
-                    users.updatePassword(req.body.email, password);
-                    
-                    res.send(JSON.stringify({ message: 'New password is send to your email.' }))
-                    return;
+                    users.updatePassword(req.body.email, password, () => {
 
+                        res.send(JSON.stringify({ message: 'New password is send to your email.' }))
+                        return;
+                    
+                    });
+                    
                 }
+
             });
               
 

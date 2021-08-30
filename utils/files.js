@@ -68,9 +68,10 @@ function deleteFile(FileID) {
 
 function updateFile(FileID, fileName, language, File_Content, callback) {
 
-    const query = 'UPDATE Files SET File_Content = ?, File_Name = ?, Language = ? WHERE FileID = ?';
+    const query = 'UPDATE Files SET File_Content = ?, File_Name = ?, Language = ?, Last_Modified = ? WHERE FileID = ?';
+    let date = new Date().toISOString().slice(0, 10);
 
-    connection.query(query, [File_Content, fileName, language, FileID], (err, result) => {
+    connection.query(query, [File_Content, fileName, language, date, FileID], (err, result) => {
 
         if(err) {
             console.log(err);

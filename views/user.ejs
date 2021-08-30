@@ -5,10 +5,34 @@
         <title>
             <%= user.Username %> 
         </title>
+        <link rel="shortcut icon" type="image/x-icon" href="../images/icon.ico">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
 
         <style>
+            @keyframes Gradient {
+                0% {
+                    background-position: 0% 50%;
+                }
+                50% {
+                    background-position: 100% 50%;
+                }
+                100% {
+                    background-position: 0% 50%;
+                }
+            }
+              
+            body {
+                background: linear-gradient(135deg, rgb(55, 27, 71), rgb(74, 55, 117), rgb(38, 77, 38), rgb(78, 78, 38), rgb(99, 67, 41), rgb(87, 39, 39));
+                background-size: 400% 400%;
+                animation: Gradient 15s ease infinite;
+                height: 100vh;
+                width: 100%;
+                overflow: hidden;
+                padding: 0;
+                margin: 0;
+              
+            }
 
             #toast {
                 position: absolute;
@@ -16,6 +40,11 @@
                 right: 0;
                 margin: 20px;
                 
+            }
+
+            .card {
+                background-color: transparent;
+                border: none;
             }
 
         </style>
@@ -67,7 +96,7 @@
 
             <div class="collapse  collapse-horizontal" id="password" style='width: 500px;'>
 
-                <div class="card card-body bg-dark" style='width: 500px;'>
+                <div class="card card-body" style='width: 500px;'>
             
                     <p class='text-light'>Enter new password</p>
                         

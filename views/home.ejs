@@ -3,6 +3,7 @@
 <html>
     <head>
         <meta charset="utf-8">
+        <link rel="shortcut icon" type="image/x-icon" href="../images/icon.ico">
         <meta viewport="width=device-width, initial-scale=1">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
         <link href="https://unpkg.com/@popperjs/core@2">
@@ -35,7 +36,7 @@
         <link href="../style/home.css" rel='stylesheet'>
 
     </head>
-    <body class="bg-dark">
+    <body>
     
         <nav class="navbar navbar-expand container p-0 navbar-dark">
 
@@ -154,6 +155,7 @@
                 
                 <br/>
                 <li class="nav-item">
+                    <p>Fonts</p>
                     <select class="fonts form-select mb-3" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Font-Style" aria-label="Default select ">
                         <option value="'Space Mono', monospace" selected>Space mono</option>
                         <option value="'Cousine', monospace">Cousine</option>
@@ -164,6 +166,8 @@
                         <option value="'Syne Mono', monospace">Syne</option>
                     </select>
                 </li>
+                
+                <br/>
 
                 <li class="nav-item text-dark">
                     <div class="accordion accordion-flush text-dark" id="accordionFlushExample">
@@ -214,6 +218,7 @@
                                 </div>
                             </div>
                         </div>
+                        <br/>
                         <div class="accordion-item rounded mt-3">
                             <h2 class="accordion-header p-1" id="files_heading">
                                 <button class="accordion-button collapsed rounded p-2" type="button" data-bs-toggle="collapse" data-bs-target="#files" aria-expanded="false" aria-controls="files">
@@ -340,6 +345,20 @@
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="button" id='download_file' class="btn btn-danger" data-bs-dismiss='modal'>Download</button>
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <div id='toast' style="z-index: 11">
+
+            <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+
+                <div class="toast-header">
+                    <strong class="me-auto"><code>CodeEditor</code></strong>
+                    <button type="button" id='close_toast' class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+
+                <div class="toast-body">
                 </div>
             </div>
         </div>
