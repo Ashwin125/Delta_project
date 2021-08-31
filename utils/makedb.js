@@ -3,7 +3,8 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 const connection = mysql.createConnection({
-    host: process.env.HOST,
+    host: process.env.DB_HOST,
+    port: Number(process.env.DB_PORT),
     user: process.env.USER_NAME,
     password: process.env.USER_PASSWORD,
 });
@@ -36,9 +37,11 @@ const makeDB = async () => {
 
 }
 
-makeDB().then(() => {
+makeDB()
+.then(() => {
     console.log('database done');
-}).catch((err) => {
+})
+.catch((err) => {
     console.log(err);
 });
 

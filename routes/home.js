@@ -108,7 +108,7 @@ function process(body, res) {
             break;
 
         case 'java':
-            command = 'javac codes/test.java && java codes/test < codes/inputs';
+            command = 'javac codes/test.java && cd codes && java test < ../codes/inputs';
             break;
 
         case 'js':
